@@ -1,0 +1,11 @@
+Edit this file C:\xampp\apache\conf\httpd.conf Change:
+
+AllowOverride none
+Require all denied
+To
+
+AllowOverride All
+Options  All
+Allow from all
+Order allow,deny
+Restart apache
