@@ -28,8 +28,8 @@
                 $num_row_00 = mysqli_num_rows($result00);
                 $num_row_11 = mysqli_num_rows($result11);
                 echo "<h1>สรุปข้อมูลทั้งหมด</h1> <br>";
-                echo "$num_row_00 record<br>";
-                echo "$num_row_11 record";
+                echo "จำนวนรายการที่กำลังส่ง $num_row_00 รายการ<br>";
+                echo "จำนวนรายการที่ส่งแล้ว $num_row_11 รายการ";
             ?>
         </div>
         <div class="col-4 text-center" >
