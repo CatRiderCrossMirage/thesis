@@ -19,45 +19,57 @@
     <!-- font -->
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@500&display=swap" rel="stylesheet">
     <title>Order Here</title>
+    <style>
+        body {
+            background-color:#e3e6dc;
+        }
+        .form-control.is-invalid, .was-validated .form-control:invalid {
+            margin-bottom: 0rem;
+            
+        }
+        .form-control.is-valid, .was-validated .form-control:valid {
+            margin-bottom: 0rem;
+        }
+    </style>
 </head>
 <body>
     <div class="container justify-content-center">
         <div class="row">
-                <div class="col" align="center">
+                <div class="col mt-2" align="center">
                         <div class="card" style="width: 40rem;">
                             <div class="card-title">
-                                <h3>กรอกรายระเอียดของคนขับ</h3>
+                                <h3 class="mt-2">กรอกรายระเอียดของคนขับ</h3>
                             </div>
                             <div class="card-body">
                                 <form action="OrderProcess.php" class="needs-validation" method=POST novalidate>
 
-                                    <div class="row m-2">
+                                    <div class="row m-4">
                                         <div class="form-outline">
                                             <input type="text" name="full_name" class="form-control" placeholder="" id="form01" required></input>
-                                            <label for="form01" class="form-label">ชื่อ-สกุล</label>
-                                            <div class="invalid-feedback">กรุณากรอกชื่อ-สกุล</div>
+                                            <label for="validation01" class="form-label">ชื่อ-สกุล</label>
+                                            <!-- <div class="invalid-feedback">กรุณากรอกชื่อ-สกุล</div> -->
                                         </div>
                                     </div>
 
-                                    <div class="row m-2">
+                                    <div class="row m-4">
                                         <div class="form-outline">
-                                            <input type="text" name="license" class="form-control" placeholder="" required></input>
-                                            <label for="validationCustom01" class="form-label">ป้ายทะเบียนรถ</label>
-                                            <div class="invalid-feedback">กรุณากรอกป้ายทะเบียนรถ</div>
+                                            <input type="text" name="license" class="form-control" id="form02" placeholder="" required></input>
+                                            <label for="validation02" class="form-label">ป้ายทะเบียนรถ</label>
+                                            <!-- <div class="invalid-feedback">กรุณากรอกป้ายทะเบียนรถ</div> -->
                                         </div>
                                     </div>
-                                    <div class="row m-2">
+                                    <div class="row m-4">
                                         <div class="form-outline">
-                                            <input type="text" name="roomRecive" class="form-control" placeholder="" required></input>
-                                            <label for="validationCustom01" class="form-label">ห้องที่มาส่ง</label>
-                                            <div class="invalid-feedback">กรุณากรอกห้องที่มาส่ง</div>
+                                            <input type="text" name="roomRecive" class="form-control" id="form03" placeholder="" required></input>
+                                            <label for="validation03" class="form-label">ห้องที่มาส่ง</label>
+                                            <!-- <div class="invalid-feedback">กรุณากรอกห้องที่มาส่ง</div> -->
                                         </div>
                                     </div>
-                                    <div class="row m-2">
+                                    <div class="row m-4">
                                         <div class="form-outline">
-                                            <input type="text" name="delivery_Platform" class="form-control" placeholder="" required></input>
-                                            <label for="validationCustom01" class="form-label">บริการที่มาส่ง</label>
-                                            <div class="invalid-feedback">กรุณากรอกบริการที่มาส่ง</div>
+                                            <input type="text" name="delivery_Platform" class="form-control" id="form04" placeholder="" required></input>
+                                            <label for="validation04" class="form-label">บริการที่มาส่ง</label>
+                                            <!-- <div class="invalid-feedback">กรุณากรอกบริการที่มาส่ง</div> -->
                                         </div>
                                     </div>
                                     <div class="footer"><br>

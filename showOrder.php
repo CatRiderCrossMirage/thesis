@@ -21,28 +21,32 @@
         <div class="col-4 text-center">
             <?php
                 include('connect.php');
-                $query00 = "SELECT orderNo FROM detailrider WHERE statusD=0";
-                $query11 = "SELECT orderNo FROM detailrider WHERE statusD=1";
-                $result00 = mysqli_query($conn, $query00);
-                $result11 = mysqli_query($conn, $query11);
-                $num_row_00 = mysqli_num_rows($result00);
-                $num_row_11 = mysqli_num_rows($result11);
-                echo "<h1>สรุปข้อมูลทั้งหมด</h1> <br>";
-                echo "จำนวนรายการที่กำลังส่ง $num_row_00 รายการ<br>";
-                echo "จำนวนรายการที่ส่งแล้ว $num_row_11 รายการ";
+                $sqlStatus0 = "SELECT * FROM detailrider WHERE statusD=0";
+                $resStatus0 = $conn->prepare($sqlStatus0);
+                $resStatus0 -> execute();
+                $countStatus0 = $resStatus0 -> rowCount();
+
+                $sqlStatus1 = "SELECT * FROM detailrider WHERE statusD=1";
+                $resStatus1 = $conn->prepare($sqlStatus1);
+                $resStatus1 -> execute();
+                $countStatus1 = $resStatus1 -> rowCount();
+
             ?>
+            <h1>สรุปข้อมูลทั้งหมด</h1><br>
+            จำนวนรายการที่กำลังส่ง <?php echo $countStatus0; ?> รายการ <br>
+            จำนวนรายการที่ส่งแล้ว <?php echo $countStatus1; ?> รายการ <br>
         </div>
         <div class="col-4 text-center" >
             <?php 
                         
-                        $query0 = "SELECT * FROM detailrider WHERE statusD=0";
-                        $result = mysqli_query($conn, $query0);
+                        // $sqlStatus0 = "SELECT * FROM detailrider WHERE statusD=0";
                         echo "<h1>รายระเอียดคนขับที่กำลังส่ง</h1>" ;
-                        while ($row = $result->fetch_assoc()) {
-                            echo"<br>
+                        foreach( $conn->query($sqlStatus0) as $row) { ?>
+                        
+                            <br>
                                 <div class='card' style='width: 25rem;'>
                                 <div class='card-title'>
-                                    <h3>ลำดับออเดอร์ที่ {$row['orderNo']}</h3>
+                                    <h3>ลำดับออเดอร์ที่ <?php echo $row['orderNo']; ?></h3>
                                 </div>
                                 <div class='card-body'>
                                         <div class='form-grop'>
@@ -51,7 +55,7 @@
                                                         ชื่อ-สกุล :: 
                                                     </label>
                                                     <label class='col-sm-6 control-label'>
-                                                        {$row['full_Name']}
+                                                        <?php echo $row["full_Name"]; ?>
                                                     </label>
                                                 </div>
                                         </div>    
@@ -61,7 +65,7 @@
                                                         ป้ายทะเบียนรถ :: 
                                                     </label>
                                                     <label class='col-sm-6 control-label'>
-                                                        {$row['license']}
+                                                        <?php echo $row['license']; ?>
                                                     </label>
                                             </div> 
                                         </div>
@@ -71,7 +75,7 @@
                                                         ห้องที่มาส่ง :: 
                                                     </label>
                                                     <label class='col-sm-6 control-label'>
-                                                        {$row['roomRecive']}
+                                                        <?php echo $row['roomRecive']; ?>
                                                     </label>
                                             </div>  
                                         </div>
@@ -81,27 +85,26 @@
                                                         บริการที่มาส่ง ::
                                                     </label>
                                                     <label class='col-sm-6 control-label'>
-                                                        {$row['delivery_Platform']}
+                                                        <?php echo $row['delivery_Platform']; ?>
                                                     </label>
                                             </div>  
                                         </div>
                                         
                                 </div> 
-                                </div>   
-                            ";  
+                                </div>     
+                    <?php    
                         }
                     ?>
         </div>
         <div class="col-4 text-center">
             <?php 
-                    $query1 = "SELECT * FROM detailrider WHERE statusD=1";
-                    $result = mysqli_query($conn, $query1);
+                    // $sqlStatus1 = "SELECT * FROM detailrider WHERE statusD=1";
                     echo "<h1>รายระเอียดคนขับที่ส่งเสร็จแล้ว</h1>" ;
-                    while ($row = $result->fetch_assoc()) {
-                        echo"<br>
+                    foreach($conn->query($sqlStatus1) as $row) { 
+            ?>
                             <div class='card' style='width: 25rem;'>
                             <div class='card-title'>
-                                <h3>ลำดับออเดอร์ที่ {$row['orderNo']}</h3>
+                                <h3>ลำดับออเดอร์ที่ <?php echo $row['orderNo']; ?></h3>
                             </div>
                             <div class='card-body'>
                                     <div class='form-grop'>
@@ -110,7 +113,7 @@
                                                     ชื่อ-สกุล :: 
                                                 </label>
                                                 <label class='col-sm-6 control-label'>
-                                                    {$row['full_Name']}
+                                                    <?php echo $row['full_Name'];?>
                                                 </label>
                                             </div>
                                     </div>    
@@ -120,7 +123,7 @@
                                                     ป้ายทะเบียนรถ :: 
                                                 </label>
                                                 <label class='col-sm-6 control-label'>
-                                                    {$row['license']}
+                                                    <?php echo $row['license'];?>
                                                 </label>
                                         </div> 
                                     </div>
@@ -130,7 +133,7 @@
                                                     ห้องที่มาส่ง :: 
                                                 </label>
                                                 <label class='col-sm-6 control-label'>
-                                                    {$row['roomRecive']}
+                                                    <?php echo $row['roomRecive'];?>
                                                 </label>
                                         </div>  
                                     </div>
@@ -140,14 +143,15 @@
                                                     บริการที่มาส่ง ::
                                                 </label>
                                                 <label class='col-sm-6 control-label'>
-                                                    {$row['delivery_Platform']}
+                                                    <?php echo $row['delivery_Platform'];?>
                                                 </label>
                                         </div>  
                                     </div>
                                     
                             </div> 
                             </div>   
-                        ";  
+                         
+                <?php
                     }
                 ?>
         </div>

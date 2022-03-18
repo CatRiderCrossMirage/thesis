@@ -1,16 +1,25 @@
 <?php 
 include('connect.php');
 //print_r($_POST);
-if(isset($_POST)){
+if(isset($_POST['confirm'])){
 
-    $orderNo = 0;
+    // $orderNo = 0;
     $full_name = $_POST["full_name"];
     $license = $_POST["license"];
     $roomRecive = $_POST["roomRecive"];
     $delivery_Platform = $_POST["delivery_Platform"];
 
-    $conn ->    query(" INSERT INTO detailrider (orderNo, full_name, license, roomRecive, delivery_Platform, statusD) 
-                VALUES ('$orderNo','$full_name','$license','$roomRecive','$delivery_Platform', '0') ") or die($conn->error);
+    $sql = "    INSERT INTO detailrider (full_name, license, roomRecive, delivery_Platform, statusD) 
+                VALUES (:full_name, :license, :roomRecive , :delivery_Platform ,:statusD)         ";
+    $stmt = $conn -> prepare($sql);
+    $params = array(
+        ':full_name' => $full_name,
+        ':license' => $license,
+        ':roomRecive' => $roomRecive,
+        ':delivery_Platform' => $delivery_Platform,
+        ':statusD' => 0
+    )
+    $stmt->execute($params);
     
     //header("location: OrderForm.php");
 }
@@ -85,7 +94,7 @@ if(isset($_POST)){
                                         </div>
                                         <div class="footer"><br>
                                             
-                                            <button class="btn btn-success"><a href="OrderForm.php">ยืนยันการส่ง</a></button>
+                                            <button class="btn btn-success" name="confirm"><a href="OrderForm.php">ยืนยันการส่ง</a></button>
                                             <button class="btn btn-danger"><a href="OrderForm.php">ยกเลิกการส่ง</a></button>
 
                                         </div>
