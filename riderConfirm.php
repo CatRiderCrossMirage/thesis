@@ -10,92 +10,152 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+    
+    <!-- https://icons.getbootstrap.com/ -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <script src="https://kit.fontawesome.com/ce3eedc3c2.js" crossorigin="anonymous"></script>
     <!-- MDB -->
     <link rel="stylesheet" href="css/mdb.min.css" />
     <!-- custom css -->
     <!--  <link rel="stylesheet" href="styles.css"> -->
     <!-- font -->
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@500&display=swap" rel="stylesheet">
-    <title>Order Here</title>
     <style>
         body {
             background-color:#e3e6dc;
         }
-        .form-control.is-invalid, .was-validated .form-control:invalid {
-            margin-bottom: 0rem;
+        .parent {
+            padding: 2px;
+            display: grid;
+            max-width: 500px;
+            grid-template-columns: repeat(autofit, minmax(180px, 1fr));
+            /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+            gap: 5px;
+        }
+        .item {
+            padding: 10px;
+            justify-content:center;
             
         }
-        .form-control.is-valid, .was-validated .form-control:valid {
-            margin-bottom: 0rem;
+        img {
+            height:75px; 
+            width:75px;
+            border-radius: 50%;
+            margin-left: 20px;
         }
     </style>
     <title>Rider Confirm</title>
 </head>
 <body>
     <div class="row">
-        <div class="col" align="center">
-            <h3>ยืนยันรายระเอียดข้อมูลที่มาส่ง</h3>
+        <?php include('connect.php'); ?>
+        <h3>ยืนยันรายระเอียดข้อมูลที่มาส่ง</h3>
+        <div class="parent">
+            <div class="item">
+                <img src="img/Grabfood.jpg" alt="Grab Food">
+                <img src="img/Lineman.jpg" alt="Line man">
+                <img src="img/Foodpanda.jpg" alt="Food panda">
+            </div>
+        </div>
+        
+        <form action="riderConfirm.php" method="GET" class="mb-2">
+            <div class="input-group" style="margin-left:20px;">
+                <div class="form-outline">
+                    <input type="search" id="form1" class="form-control" name="keywords" style="background-color:#fff;"/>
+                    <label class="form-label" for="form1">เลขห้อง</label>
+                </div>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-search"></i>
+                    </button>
+            </div>
+        </form>
+        <div class="col">
+            <div class="parent">
             <?php 
-                include('connect.php');
-                $query = "SELECT * FROM detailrider WHERE statusD = 0";
-                $result = mysqli_query($conn, $query);
-                while ($row = $result->fetch_assoc()) {
-                        echo"
-                        <div class='card' style='width: 25rem;'>
-                        <div class='card-title'>
-                            <h3></h3>
-                        </div>
-                        <div class='card-body'>
-                                <div class='form-grop'>
-                                        <div class='row'>
-                                            <label class='col-sm control-label'>
-                                                ชื่อ-สกุล :: 
-                                            </label>
-                                            <label class='col-sm-6 control-label'>
-                                                {$row['full_Name']}
-                                            </label>
-                                        </div>
-                                </div>    
-                                <div class='form-grop'>
-                                    <div class='row'>
-                                            <label class='col-sm control-label'>
-                                                ป้ายทะเบียนรถ :: 
-                                            </label>
-                                            <label class='col-sm-6 control-label'>
-                                                {$row['license']}
-                                            </label>
-                                    </div> 
-                                </div>
-                                <div class='form-grop'>
-                                    <div class='row'>
-                                            <label class='col-sm control-label'>
-                                                ห้องที่มาส่ง :: 
-                                            </label>
-                                            <label class='col-sm-6 control-label'>
-                                                {$row['roomRecive']}
-                                            </label>
-                                    </div>  
-                                </div>
-                                <div class='form-grop'>
-                                    <div class='row'>
-                                            <label class='col-sm control-label'>
-                                                บริการที่มาส่ง ::
-                                            </label>
-                                            <label class='col-sm-6 control-label'>
-                                                {$row['delivery_Platform']}
-                                            </label>
-                                    </div>  
-                                </div>
-                                <div class='footer'><br>
-                                    <button type='button' class='btn' name='recived'><a href='update.php?orderNo={$row['orderNo']}&roomRecive={$row['roomRecive']}'>ยืนยัน</a></button>
-                                </div>
-                        </div> 
-                        </div>   
-                    ";  
+                if(isset($_GET['keywords'])){
+
+                    $keywords = $_GET['keywords'];
+                    $sqlStatus0 = "SELECT * FROM detailrider WHERE roomRecive LIKE :keywords OR roomRecive LIKE :keywords ORDER BY statusD ASC";
+                    $resStatus0 = $conn->prepare($sqlStatus0);
+                    $params = array(
+                        'keywords' => "%{$keywords}%"
+                    );
+                    $resStatus0->execute($params);
+                    $result = $resStatus0->fetchALL();
                     
+                } else {
+                    $sqlStatus0 = "SELECT * FROM detailrider WHERE statusD=0";
+                    $resStatus0 = $conn->prepare($sqlStatus0);
+                    $resStatus0 -> execute();
+                    $result = $resStatus0->fetchALL();
                 }
+
+                foreach($result as $row) { 
+                    if($row['statusD'] == 0){
+            
+                  ?>
+                  <div class='card' style='width: 300px;'>
+            
+                    <div class='card-title'>
+                        <h3></h3>
+                    </div>
+            
+                    <div class='card-body'>
+                        <div class='form-grop'>
+                            <div class='row'>
+                                <label class='col control-label'>
+                                    ชื่อ-สกุล :: 
+                                </label>
+                                <label class='col control-label'>
+                                    <?php echo $row['full_Name']; ?>
+                                </label>
+                            </div>
+                        </div>    
+                        <div class='form-grop'>
+                            <div class='row'>
+                                <label class='col control-label'>
+                                    ป้ายทะเบียนรถ :: 
+                                </label>
+                                <label class='col control-label'>
+                                    <?php echo $row['license']; ?>
+                                </label>
+                            </div> 
+                        </div>
+                        <div class='form-grop'>
+                            <div class='row'>
+                                <label class='col control-label'>
+                                    ห้องที่มาส่ง :: 
+                                </label>
+                                <label class='col control-label'>
+                                    <?php echo $row['roomRecive']; ?>
+                                </label>
+                            </div>  
+                        </div>
+                        <div class='form-grop'>
+                            <div class='row'>
+                                <label class='col control-label'>
+                                    บริการที่มาส่ง ::
+                                </label>
+                                <label class='col control-label'>
+                                    <?php echo $row['delivery_Platform']; ?>
+                                </label>
+                            </div>  
+                        </div>
+                    </div>
+            
+                    <div class='footer'>
+                        <a class="btn" href="update.php?orderNo=<?php echo $row['orderNo'];?>&roomRecive=<?php echo $row['roomRecive']; ?>" 
+                        name="recived" style="margin-left:36%;margin-bottom:10px;">
+                        ยืนยัน</a>
+                    </div>
+            
+                    </div>
+            <?php 
+                    }
+                  } 
+            
             ?>
+            </div>
         </div>
     </div>
     <script type="text/javascript" src="js/mdb.min.js"></script>     
