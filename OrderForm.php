@@ -33,15 +33,26 @@
     </style>
 </head>
 <body>
+    <?php 
+        session_start();
+        if(isset($_SESSION['msg'])) {?>
+        <div class="alert alert-success" role="alert">
+            <?php echo $_SESSION['msg'];?>
+        </div>
+    <?php 
+        session_unset();
+        }
+    ?>
+    
     <div class="container justify-content-center">
         <div class="row">
                 <div class="col mt-2" align="center">
-                        <div class="card" style="width: 40rem;">
+                        <div class="card" style="max-width: 500px;">
                             <div class="card-title">
                                 <h3 class="mt-2">กรอกรายระเอียดของคนขับ</h3>
                             </div>
                             <div class="card-body">
-                                <form action="OrderProcess.php" class="needs-validation" method=POST novalidate>
+                                <form action="OrderProcess.php" class="needs-validation" method="POST" novalidate>
 
                                     <div class="row m-4">
                                         <div class="form-outline">
