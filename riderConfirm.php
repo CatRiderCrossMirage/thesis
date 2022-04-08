@@ -49,12 +49,22 @@
 <body>
     <div class="row">
         <?php include('connect.php'); ?>
-        <h3>ยืนยันรายระเอียดข้อมูลที่มาส่ง</h3>
+        <h3><a href="riderConfirm.php">ยืนยันรายระเอียดข้อมูลที่มาส่ง</a></h3>
+
         <div class="parent">
             <div class="item">
-                <img src="img/Grabfood.jpg" alt="Grab Food">
-                <img src="img/Lineman.jpg" alt="Line man">
-                <img src="img/Foodpanda.jpg" alt="Food panda">
+                <a href="riderConfirm.php?platform=grabFood">
+                    <img src="img/Grabfood.jpg" alt="Grab Food">
+                </a>
+                <a href="riderConfirm.php?platform=lineMan">
+                    <img src="img/Lineman.jpg" alt="Line man">
+                </a>
+                <a href="riderConfirm.php?platform=Food panda">
+                    <img src="img/Foodpanda.jpg" alt="Food panda">
+                </a>
+                <!-- <a href="riderConfirm.php?platform=other" style="margin-bottom:10px;">
+                    <i class="fas fa-ellipsis-h fa-4x"></i>
+                </a> -->
             </div>
         </div>
         
@@ -83,7 +93,30 @@
                     $resStatus0->execute($params);
                     $result = $resStatus0->fetchALL();
                     
-                } else {
+                }   elseif(isset($_GET['platform'])) {
+
+                        $G = "Grab Food";
+                        $L = "Line man";
+                        $P = "Food panda";
+                        $platform = "";
+
+                        if($_GET['platform'] == $G){
+                            $platform = $G;
+                        } elseif($_GET['platform'] == $L) {
+                            $platform = $L;
+                        } elseif($_GET['platform'] == $P){
+                            $platform = $P;
+                        }
+                        
+                        $sqlPlatform = "SELECT * FROM detailrider WHERE delivery_Platform LIKE :platform";
+                        $resPlatform = $conn->prepare($sqlPlatform);
+                        $params = array(
+                            'platform' => "%{$platform}%"
+                        );
+                        $resPlatform->execute($params);
+                        $result = $resPlatform->fetchALL();
+
+                }   else {
                     $sqlStatus0 = "SELECT * FROM detailrider WHERE statusD=0";
                     $resStatus0 = $conn->prepare($sqlStatus0);
                     $resStatus0 -> execute();

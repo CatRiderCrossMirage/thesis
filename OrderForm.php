@@ -30,6 +30,11 @@
         .form-control.is-valid, .was-validated .form-control:valid {
             margin-bottom: 0rem;
         }
+        img {
+            height:50px; 
+            width:50px;
+            border-radius: 50%;
+        }
     </style>
 </head>
 <body>
@@ -77,9 +82,18 @@
                                         </div>
                                     </div>
                                     <div class="row m-4">
+
+                                        <select class="form-select mb-2" required>
+                                            <option selected>เลือกบริการที่มาส่ง</option>
+                                            <option value="Grab Food">Grab Food</option>
+                                            <option value="Line man">Line man</option>
+                                            <option value="Food panda">Food panda</option>
+                                            <option value="other">อื่นๆ</option>
+                                        </select>
+
                                         <div class="form-outline">
-                                            <input type="text" name="delivery_Platform" class="form-control" id="form04" placeholder="" required></input>
-                                            <label for="validation04" class="form-label">บริการที่มาส่ง</label>
+                                            <!-- <input type="text" name="delivery_Platform" class="form-control" id="form04" placeholder="" ></input>
+                                            <label for="validation04" class="form-label">บริการที่มาส่ง</label> -->
                                             <!-- <div class="invalid-feedback">กรุณากรอกบริการที่มาส่ง</div> -->
                                         </div>
                                     </div>
