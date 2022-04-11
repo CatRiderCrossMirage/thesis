@@ -83,19 +83,19 @@
                                     </div>
                                     <div class="row m-4">
 
-                                        <select class="form-select mb-2" required>
+                                        <select id="deliverySelect" name="delivery_Platform" class="form-select mb-2" required>
                                             <option selected>เลือกบริการที่มาส่ง</option>
                                             <option value="Grab Food">Grab Food</option>
                                             <option value="Line man">Line man</option>
                                             <option value="Food panda">Food panda</option>
-                                            <option value="other">อื่นๆ</option>
+                                            <option value="Express">บริการส่งของ</option>
                                         </select>
-
-                                        <div class="form-outline">
-                                            <!-- <input type="text" name="delivery_Platform" class="form-control" id="form04" placeholder="" ></input>
-                                            <label for="validation04" class="form-label">บริการที่มาส่ง</label> -->
+                                        <h6>กรณีเลือก <small class="text-muted"> บริการส่งของ </small> กรอกเลขพัสดุที่ <small class="text-muted">ป้ายทะเบียนรถ</small></h6>
+                                        <!-- <div id="deliveryForm" class="form-outline" style="display:none;">
+                                            <input type="text" name="delivery_Platform" class="form-control" id="form04" placeholder="" ></input>
+                                            <label for="validation04" class="form-label">บริการที่มาส่ง</label>  -->
                                             <!-- <div class="invalid-feedback">กรุณากรอกบริการที่มาส่ง</div> -->
-                                        </div>
+                                        <!-- </div> -->
                                     </div>
                                     <div class="footer"><br>
                                         <input type="submit" name="save" class="btn btn-success" value="ส่งข้อมูล"></input>
@@ -110,7 +110,21 @@
 <script type="text/javascript" src="js/mdb.min.js"></script>
 <!-- Custom scripts -->
 <script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
+
+// $(document).ready(function(){
+//     $('#deliverySelect').on('change', function() {
+//       if ( this.value == 'Express')
+//       {
+//         $("#deliveryForm").show();
+//       }
+//       else
+//       {
+//         $("#deliveryForm").hide();
+//       }
+//     });
+// });
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
 (() => {
   'use strict';
 
@@ -128,6 +142,7 @@
     }, false);
   });
 })();
+
 </script>
 
 

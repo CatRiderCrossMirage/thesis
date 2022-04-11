@@ -53,18 +53,18 @@
 
         <div class="parent">
             <div class="item">
-                <a href="riderConfirm.php?platform=grabFood">
+                <a href="riderConfirm.php?platform=Grab Food">
                     <img src="img/Grabfood.jpg" alt="Grab Food">
                 </a>
-                <a href="riderConfirm.php?platform=lineMan">
+                <a href="riderConfirm.php?platform=Line man">
                     <img src="img/Lineman.jpg" alt="Line man">
                 </a>
                 <a href="riderConfirm.php?platform=Food panda">
                     <img src="img/Foodpanda.jpg" alt="Food panda">
+                </a><br>
+                <a href="riderConfirm.php?platform=Express" style="margin:30px;">
+                    <i class="fas fa-truck fa-4x" style="color:#ed9158;"></i>
                 </a>
-                <!-- <a href="riderConfirm.php?platform=other" style="margin-bottom:10px;">
-                    <i class="fas fa-ellipsis-h fa-4x"></i>
-                </a> -->
             </div>
         </div>
         
@@ -85,7 +85,7 @@
                 if(isset($_GET['keywords'])){
 
                     $keywords = $_GET['keywords'];
-                    $sqlStatus0 = "SELECT * FROM detailrider WHERE roomRecive LIKE :keywords OR roomRecive LIKE :keywords ORDER BY statusD ASC";
+                    $sqlStatus0 = "SELECT * FROM detailrider WHERE roomRecive LIKE :keywords ORDER BY statusD ASC";
                     $resStatus0 = $conn->prepare($sqlStatus0);
                     $params = array(
                         'keywords' => "%{$keywords}%"
@@ -98,6 +98,7 @@
                         $G = "Grab Food";
                         $L = "Line man";
                         $P = "Food panda";
+                        $Ex = "Express";
                         $platform = "";
 
                         if($_GET['platform'] == $G){
@@ -106,6 +107,8 @@
                             $platform = $L;
                         } elseif($_GET['platform'] == $P){
                             $platform = $P;
+                        } elseif($_GET['platform'] == $Ex) {
+                            $platform =$Ex;
                         }
                         
                         $sqlPlatform = "SELECT * FROM detailrider WHERE delivery_Platform LIKE :platform";

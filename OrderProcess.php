@@ -107,7 +107,7 @@
                                     </div>
                                     <div class="footer"><br>
                                         <button class="btn btn-success" name="confirm">ยืนยันการส่ง</button>
-                                        <a href="OrderForm.php"><button class="btn btn-danger">ยกเลิกการส่ง</button></a>
+                                        <a href="OrderForm.php" class="btn btn-danger">ยกเลิกการส่ง</a>
                                     </div>
                                     </form>
                                            
