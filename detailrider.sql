@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2021 at 11:06 AM
--- Server version: 10.4.8-MariaDB
--- PHP Version: 7.3.11
+-- Generation Time: Apr 20, 2022 at 11:07 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -34,19 +33,27 @@ CREATE TABLE `detailrider` (
   `license` text NOT NULL,
   `roomRecive` text NOT NULL,
   `delivery_Platform` text NOT NULL,
-  `statusD` tinyint(1) NOT NULL
+  `statusD` tinyint(1) NOT NULL,
+  `currentTimes` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `detailrider`
 --
 
-INSERT INTO `detailrider` (`orderNo`, `full_Name`, `license`, `roomRecive`, `delivery_Platform`, `statusD`) VALUES
-(2, 'ขับช้าๆลงหน่อย', 'ตด 5556', 'ตึก 1 308', 'Grab', 1),
-(3, 'ขับช้าๆลงหน่อย', 'ตด 5556', 'ตึก 1 399', 'Grab', 1),
-(10, 'ขับช้าๆลงหน่อย', 'ตด 555778', 'ตึก 1 3988', 'Line man', 1),
-(13, 'Jirawat Seekeawchuang', 'ตด 5555', 'ตึก 1 308', 'Line man', 1),
-(15, 'Jirawat', 'ตด 5567', 'ตึก 1 308', 'Grab', 0);
+INSERT INTO `detailrider` (`orderNo`, `full_Name`, `license`, `roomRecive`, `delivery_Platform`, `statusD`, `currentTimes`) VALUES
+(2, 'ขับช้าๆลงหน่อย', 'ตด 5556', 'ตึก 1 308', 'Grab', 1, '2022-04-19 08:17:30'),
+(3, 'ขับช้าๆลงหน่อย', 'ตด 5556', 'ตึก 1 399', 'Grab', 1, '2022-04-19 08:17:30'),
+(16, 'D the hunter', 'DDD777', 'D307', 'DMan', 1, '2022-04-19 08:17:30'),
+(17, 'D the hunter', 'DDD777', 'D307', 'DMan', 1, '2022-04-19 08:17:30'),
+(18, 'D the hunter', 'DDD777', 'D307', 'DMan', 1, '2022-04-19 08:17:30'),
+(19, 'D the hunter', 'DDD777', 'D307', 'Food panda', 0, '2022-04-19 08:17:30'),
+(20, 'จิรวัฒน์ สีแก้วช่วง', 'กย 1500', 'ตึก 1 ห้อง 307', '', 1, '2022-04-19 08:17:30'),
+(21, 'จิรวัฒน์ สีแก้วช่วง', 'กย 1501', 'ตึก 1 ห้อง 308', 'Food panda', 0, '2022-04-19 08:17:30'),
+(22, 'จิรวัฒน์ สีแก้วช่วง', 'EXP123456789', 'ตึก 1 ห้อง 308', 'Express', 0, '2022-04-19 08:17:30'),
+(23, 'จิรวัฒน์ สีแก้วช่วง', 'กย 1510', 'ตึก 1 ห้อง 355', 'Grab Food', 0, '2022-04-19 08:17:30'),
+(24, 'จิรวัฒน์ สีแก้วช่วง', 'ff15', 'ตึก 2 ห้อง 310', 'Line man', 0, '2022-04-19 08:17:30'),
+(25, 'จิรวัฒน์ สีแก้วช่วง', 'กย 1515', 'ตึก 2 ห้อง 311', 'Line man', 0, '2022-04-19 08:18:07');
 
 --
 -- Indexes for dumped tables
@@ -66,7 +73,7 @@ ALTER TABLE `detailrider`
 -- AUTO_INCREMENT for table `detailrider`
 --
 ALTER TABLE `detailrider`
-  MODIFY `orderNo` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `orderNo` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
