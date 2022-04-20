@@ -45,7 +45,7 @@
                         </div>
                     </div>
 
-                    <div class="input-group" style="margin-left:30%;">
+                    <!-- <div class="input-group" style="margin-left:30%;">
                         <div class="form-outline mb-2">
                             <input type="search" id="form1" class="form-control" name="days" style="background-color:#fff;"/>
                             <label class="form-label" for="form1">วันที่</label>
@@ -64,7 +64,7 @@
                             <input type="search" id="form1" class="form-control" name="years" style="background-color:#fff;"/>
                             <label class="form-label" for="form1">ปี</label>
                         </div>
-                    </div>
+                    </div> -->
 
                     <button class="btn btn-success" name="searching" value="search">
                         <i class="fas fa-search"></i>
@@ -121,77 +121,6 @@
                         $result1 = $resStatus1->fetchALL();
                         $countStatus1 = $resStatus1 -> rowCount();
 
-                } elseif(isset($_GET['days'])){
-
-                    $days = $_GET['days'];
-                    $splitDate = "SELECT * FROM detailrider WHERE statusD=0 ORDER BY statusD ASC";
-                    $resSplitDate = $conn->prepare($splitDate);
-                    $resSplitDate->execute();
-                    $resultSplit = $resSplitDate -> fetchALL();
-
-                    foreach($resultSplit as $res){
-                        $times = $res['currentTimes'];
-                        $spitTimes = explode("-",$times);
-                        $days = explode(" ",$spitTimes[2]);
-                    }
-                    $sqlDays0 = "SELECT * FROM detailrider WHERE currentTimes LIKE :days AND statusD=0 ORDER BY statusD ASC";
-                    $resStatus0 = $conn->prepare($sqlDays0);
-                    $params = array(
-                        'days' => "%{$days}%"
-                    );
-                    $resStatus0->execute($params);
-                    $result0 = $resStatus0->fetchALL();
-
-                    $countStatus1 = $resStatus1 -> rowCount();
-                    $sqlDays1 = "SELECT * FROM detailrider WHERE currentTimes LIKE :days AND statusD=1 ORDER BY statusD ASC";
-                    $resStatus1 = $conn->prepare($sqlDays1);
-                    $params = array(
-                        'days' => "%{$days}%"
-                    );
-                    $resStatus1->execute($params);
-                    $result1 = $resStatus1->fetchALL();
-                    $countStatus1 = $resStatus1 -> rowCount();
-
-                } elseif(isset($_GET['month'])){
-
-                    $month = $_GET['month'];
-                    $sqlMonth0 = "SELECT * FROM detailrider WHERE currentTimes LIKE :month AND statusD=0 ORDER BY statusD ASC";
-                    $resStatus0 = $conn->prepare($sqlMonth0);
-                    $params = array(
-                        'days' => "%{$month}%"
-                    );
-                    $resStatus0->execute($params);
-                    $result0 = $resStatus0->fetchALL();
-
-                    $countMonth1 = $resStatus1 -> rowCount();
-                    $sqlDays1 = "SELECT * FROM detailrider WHERE currentTimes LIKE :month AND statusD=1 ORDER BY statusD ASC";
-                    $resStatus1 = $conn->prepare($sqlMonth1);
-                    $params = array(
-                        'days' => "%{$month}%"
-                    );
-                    $resStatus1->execute($params);
-                    $result1 = $resStatus1->fetchALL();
-                    $countStatus1 = $resStatus1 -> rowCount();
-                } elseif(isset($_GET['years'])){
-
-                    $years = $_GET['years'];
-                    $sqlyears0 = "SELECT * FROM detailrider WHERE currentTimes LIKE :years AND statusD=0 ORDER BY statusD ASC";
-                    $resStatus0 = $conn->prepare($sqlyears0);
-                    $params = array(
-                        'days' => "%{$month}%"
-                    );
-                    $resStatus0->execute($params);
-                    $result0 = $resStatus0->fetchALL();
-
-                    $countMonth1 = $resStatus1 -> rowCount();
-                    $sqlyears1 = "SELECT * FROM detailrider WHERE currentTimes LIKE :years AND statusD=1 ORDER BY statusD ASC";
-                    $resStatus1 = $conn->prepare($sqlyears1);
-                    $params = array(
-                        'days' => "%{$years}%"
-                    );
-                    $resStatus1->execute($params);
-                    $result1 = $resStatus1->fetchALL();
-                    $countStatus1 = $resStatus1 -> rowCount();
                 } else {
                 
                     $sqlStatus0 = "SELECT * FROM detailrider WHERE statusD=0 ORDER BY orderNo DESC";
@@ -206,6 +135,116 @@
                     $result1 = $resStatus1->fetchALL();
                     $countStatus1 = $resStatus1 -> rowCount();
                 }
+
+                // elseif(isset($_GET['days']) || isset($_GET['month']) || isset($_GET['years'])){
+                //     // this condition is input for search a one thing 
+                //     if(isset($_GET['days'])){
+                //         $keyGET = $_GET['days'];
+                //     } elseif(isset($_GET['month'])){
+                //         $keyGET = $_GET['month'];
+                //     } elseif(isset($_GET['years'])) {
+                //         $keyGET = $_GET['years'];
+                //     } else {
+                //         $keyGET = "";
+                //     }
+
+                //     $splitDate = "SELECT * FROM detailrider WHERE statusD=0 ORDER BY statusD ASC";
+                //     $resSplitDate = $conn->prepare($splitDate);
+                //     $resSplitDate->execute();
+                //     $resultSplit = $resSplitDate -> fetchALL();
+
+                //     foreach($resultSplit as $res){
+                //         $times = $res['currentTimes'];
+                //         $spitTimes = explode("-",$times);
+                //         $days = explode(" ",$spitTimes[2]);
+                //         // year is spitTimes[0] month is spitTimes[1] and days is $days[0]
+                //     }
+                //     $sqlDays0 = "SELECT * FROM detailrider WHERE currentTimes LIKE :keyGET AND statusD=0 ORDER BY statusD ASC";
+                //     $resStatus0 = $conn->prepare($sqlDays0);
+                //     $params = array(
+                //         'keyGET' => "%{$keyGET}%"
+                //     );
+                //     $resStatus0->execute($params);
+                //     $result0 = $resStatus0->fetchALL();
+
+                //     $countStatus1 = $resStatus1 -> rowCount();
+                //     $sqlDays1 = "SELECT * FROM detailrider WHERE currentTimes LIKE :keyGET AND statusD=1 ORDER BY statusD ASC";
+                //     $resStatus1 = $conn->prepare($sqlDays1);
+                //     $params = array(
+                //         'keyGET' => "%{$keyGET}%"
+                //     );
+                //     $resStatus1->execute($params);
+                //     $result1 = $resStatus1->fetchALL();
+                //     $countStatus1 = $resStatus1 -> rowCount();
+
+                // } elseif(isset($_GET['days']) && isset($_GET['month']) && isset($_GET['years'])){
+                //     // this condition is input for search a all a days/month/years
+                //         $daysGET = $_GET['days'];
+                //         $monthGET = $_GET['month'];
+                //         $yearsGET = $_GET['years'];
+                    
+                //     $sqlMonth0 = "SELECT * FROM detailrider WHERE currentTimes LIKE :daysGET AND currentTimes LIKE :monthGET AND currentTimes LIKE :yearsGET AND statusD=0 ORDER BY statusD ASC";
+                //     $resStatus0 = $conn->prepare($sqlMonth0);
+                //     $params = array(
+                //         'daysGET' => "%{$daysGET}%",
+                //         'monthGET' => "%{$monthGET}%",
+                //         'yearsGET' => "%{$yearsGET}%"
+                //     );
+                //     $resStatus0->execute($params);
+                //     $result0 = $resStatus0->fetchALL();
+
+                //     $countMonth1 = $resStatus1 -> rowCount();
+                //     $sqlDays1 = "SELECT * FROM detailrider WHERE currentTimes LIKE :daysGET AND currentTimes LIKE :monthGET AND currentTimes LIKE :yearsGET AND statusD=1 ORDER BY statusD ASC";
+                //     $resStatus1 = $conn->prepare($sqlMonth1);
+                //     $params = array(
+                //         'daysGET' => "%{$daysGET}%",
+                //         'monthGET' => "%{$monthGET}%",
+                //         'yearsGET' => "%{$yearsGET}%"
+                //     );
+                //     $resStatus1->execute($params);
+                //     $result1 = $resStatus1->fetchALL();
+                //     $countStatus1 = $resStatus1 -> rowCount();
+
+                // } elseif( (isset($_GET['days']) && isset($_GET['month'])) || (isset($_GET['days']) && isset($_GET['years'])) || (isset($_GET['month']) && isset($_GET['years']))){
+
+                //     // this condition is input for search a one thing 
+                //     if(isset($_GET['days']) && isset($_GET['month'])){
+                //         $key1GET = $_GET['days'];
+                //         $key2GET = $_GET['month'];
+
+                //     } elseif(isset($_GET['days']) && isset($_GET['years'])){
+                //         $key1GET = $_GET['days'];
+                //         $key2GET = $_GET['years'];
+
+                //     } elseif(isset($_GET['month']) && isset($_GET['years'])) {
+                //         $key1GET = $_GET['month'];
+                //         $key2GET = $_GET['years'];
+
+                //     } else {
+                //         $key1GET = "";
+                //         $key2GET = "";
+                //     }
+
+                //     $sqlyears0 = "SELECT * FROM detailrider WHERE currentTimes LIKE :key1GET AND currentTimes LIKE :key2GET AND statusD=0 ORDER BY statusD ASC";
+                //     $resStatus0 = $conn->prepare($sqlyears0);
+                //     $params = array(
+                //         'key1GET' => "%{$key1GET}%",
+                //         'key2GET' => "%{$key2GET}%"
+                //     );
+                //     $resStatus0->execute($params);
+                //     $result0 = $resStatus0->fetchALL();
+
+                //     $countMonth1 = $resStatus1 -> rowCount();
+                //     $sqlyears1 = "SELECT * FROM detailrider WHERE currentTimes LIKE :key1GET AND currentTimes LIKE :key2GET AND statusD=1 ORDER BY statusD ASC";
+                //     $resStatus1 = $conn->prepare($sqlyears1);
+                //     $params = array(
+                //         'key1GET' => "%{$key1GET}%",
+                //         'key2GET' => "%{$key2GET}%"
+                //     );
+                //     $resStatus1->execute($params);
+                //     $result1 = $resStatus1->fetchALL();
+                //     $countStatus1 = $resStatus1 -> rowCount();
+                // } 
             ?>
             
             จำนวนรายการที่กำลังส่ง <?php echo $countStatus0; ?> รายการ <br>
