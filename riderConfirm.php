@@ -85,7 +85,7 @@
                 if(isset($_GET['keywords'])){
 
                     $keywords = $_GET['keywords'];
-                    $sqlStatus0 = "SELECT * FROM detailrider WHERE roomRecive LIKE :keywords ORDER BY statusD ASC";
+                    $sqlStatus0 = "SELECT * FROM detailrider WHERE roomRecive LIKE :keywords AND statusD=0 ORDER BY orderNo DESC";
                     $resStatus0 = $conn->prepare($sqlStatus0);
                     $params = array(
                         'keywords' => "%{$keywords}%"
@@ -111,7 +111,7 @@
                             $platform =$Ex;
                         }
                         
-                        $sqlPlatform = "SELECT * FROM detailrider WHERE delivery_Platform LIKE :platform";
+                        $sqlPlatform = "SELECT * FROM detailrider WHERE delivery_Platform LIKE :platform AND statusD=0 ORDER BY orderNo DESC";
                         $resPlatform = $conn->prepare($sqlPlatform);
                         $params = array(
                             'platform' => "%{$platform}%"
@@ -120,7 +120,7 @@
                         $result = $resPlatform->fetchALL();
 
                 }   else {
-                    $sqlStatus0 = "SELECT * FROM detailrider WHERE statusD=0";
+                    $sqlStatus0 = "SELECT * FROM detailrider WHERE statusD=0 ORDER BY orderNo DESC";
                     $resStatus0 = $conn->prepare($sqlStatus0);
                     $resStatus0 -> execute();
                     $result = $resStatus0->fetchALL();
