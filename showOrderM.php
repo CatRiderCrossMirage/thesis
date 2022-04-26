@@ -77,14 +77,14 @@
         <div class="col-md-12 text-center" >
             ตรวจสอบการเข้าออกภายในหอพัก
             <br>
-            <button type="button" class="btn btn-primary" onclick="myButton0()">
+            <button type="button" class="btn btn-primary mb-2" onclick="myButton0()">
                 <i class="fas fa-shipping-fast fa-lg"></i>&nbsp;</i>กำลังจัดส่ง
             </button>
-            <button type="button" class="btn btn-success" onclick="myButton1()">
+            <button type="button" class="btn btn-success mb-2" onclick="myButton1()">
                 <i class="fas fa-check fa-lg"></i> &nbsp;จัดส่งเสร็จแล้ว
             </button><br>
             <!-- search box -->
-            <form  method="GET">
+            <form  method="GET" class="mb-2" style="margin-left:40%;">
                 <div class="input-group" >
                     <div class="form-outline">
                         <input type="search" id="form1" class="form-control" name="roomNumbers" style="background-color:#fff;"/>
